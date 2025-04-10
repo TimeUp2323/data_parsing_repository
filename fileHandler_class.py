@@ -1,10 +1,10 @@
 import os
-from classes import File
+from file_class import File
 
 
 class FileHandler:
     def __init__(self):
-        self._files = {}
+        self._count_files = 0
         self._extensions = {}
 
     def process_directory(self, path: str) -> None:
@@ -29,6 +29,10 @@ class FileHandler:
 
     def _count_extensions(self, ext: str) -> None:
         self._extensions[ext] = self._extensions.get(ext, 0) + 1
+        self._count_files += 1
 
     def get_extensions(self) -> dict:
         return self._extensions.copy()
+
+    def get_count_files(self) -> int:
+        return self._count_files

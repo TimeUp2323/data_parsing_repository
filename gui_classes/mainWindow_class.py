@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from file_handlers import FileHandler
-from result_window import ResultWindow
+from fileHandler_class import FileHandler
+from resultWindow_class import ResultWindow
 
 class MainWindow(tk.Tk):
     def __init__(self):
@@ -12,7 +12,6 @@ class MainWindow(tk.Tk):
 
         self._create_widgets()
         self._setup_menu()
-
 
     def _create_widgets(self):
         self.entry = ttk.Entry(self, width=50)
