@@ -19,7 +19,7 @@ class MainWindow(tk.Tk):
 
         self.run_btn = ttk.Button(
             self,
-            text="Start",
+            text="Старт",
             command=self.run_processing
         )
         self.run_btn.pack()
