@@ -7,17 +7,19 @@ class FileHandler:
         self._count_files = 0
         self._extensions = {}
 
-    def process_directory(self, path: str) -> None:
-        self._walk_directory(path)
+    def process_all_directories(self, path: str) -> None:
+        self._count_files = 0
+        self._extensions = {}
+        self._walk_current_directory(path)
 
-    def _walk_directory(self, folder_path: str) -> None:
+    def _walk_current_directory(self, folder_path: str) -> None:
         try:
             for item in os.listdir(folder_path):
                 path = os.path.join(folder_path, item)
                 if os.path.isfile(path):
                     self._process_file(path)
                 else:
-                    self._walk_directory(path)
+                    self._walk_current_directory(path)
         except PermissionError:
             raise RuntimeError(f"Требуются права администратора для: {folder_path}")
         except Exception as e:

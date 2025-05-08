@@ -36,7 +36,7 @@ class MainWindow(tk.Tk):
             messagebox.showerror("Ошибка", "Введите путь директории")
             return
         try:
-            self.file_handler.process_directory(path)
+            self.file_handler.process_all_directories(path)
             ResultWindow(self, self.file_handler)
         except Exception as e:
             messagebox.showerror("Ошибка", str(e))

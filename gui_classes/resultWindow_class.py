@@ -24,4 +24,6 @@ class ResultWindow(tk.Toplevel):
     def _show_results(self, handler):
         self.text.insert('end', "Статистика обработки:\n")
         self.text.insert('end', f"Найдено всего файлов: {handler._count_files}\n")
-        self.text.insert('end', f"Расширения файлов: {handler._extensions}\n\n")
+        self.text.insert('end', f"Найдено всего разрешений:\n")
+        for i, ext in enumerate(handler._extensions):
+            self.text.insert('end', f"{i +1} {ext}: {handler._extensions[ext]}\n")
