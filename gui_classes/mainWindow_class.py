@@ -6,7 +6,7 @@ from resultWindow_class import ResultWindow
 class MainWindow(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title()
+        self.title("Главное окно")
         self.geometry("560x480")
         self.file_handler = FileHandler()
 
