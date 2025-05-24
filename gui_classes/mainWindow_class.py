@@ -46,8 +46,8 @@ class MainWindow(tk.Tk):
         messagebox.showinfo("Справка", text)
 
     def show_about(self):
-        text = "Парсер файлов версия 1.0"
-        messagebox.showinfo("О программе", text)
+        feedback = "Парсер файлов версия 1.0 \n Для обратной связи: timeupwork6432@gmail.com"
+        messagebox.showinfo("О программе", feedback )
 
 if __name__ == "__main__":
     app = MainWindow()
