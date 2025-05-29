@@ -7,6 +7,12 @@ class FileHandler:
         self._count_files = 0
         self._extensions = {}
 
+    def get_extensions(self) -> dict[str, int]:
+        return self._extensions
+
+    def get_count_files(self) -> int:
+        return self._count_files
+
     def process_all_directories(self, path: str) -> None:
         self._count_files = 0
         self._extensions = {}
@@ -32,9 +38,3 @@ class FileHandler:
     def _count_extensions(self, ext: str) -> None:
         self._extensions[ext] = self._extensions.get(ext, 0) + 1
         self._count_files += 1
-
-    def get_extensions(self) -> dict:
-        return self._extensions.copy()
-
-    def get_count_files(self) -> int:
-        return self._count_files
