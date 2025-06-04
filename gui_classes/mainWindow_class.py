@@ -17,12 +17,29 @@ class MainWindow(tk.Tk):
         self.entry = ttk.Entry(self, width=50)
         self.entry.pack(pady=140, padx=50)
 
+        self.entry.insert(0, "Введите абсолютный путь к директории ...")
+        self.entry.config(foreground="grey")
+
+        self.entry.bind("<FocusIn>", self._clear_placeholder)
+        self.entry.bind("<FocusOut>", self._set_placeholder)
+
         self.run_btn = ttk.Button(
             self,
             text="Старт",
             command=self.run_processing
         )
         self.run_btn.pack()
+
+    def _clear_placeholder(self, event):
+        if self.entry.get() == "Введите абсолютный путь к директории ...":
+            self.entry.delete(0, "end")
+            self.entry.config(foreground="black")
+
+    def _set_placeholder(self, event):
+        if not self.entry.get():
+            self.entry.insert(0, "Введите абсолютный путь к директории ...")
+            self.entry.config(foreground='grey')
+
 
     def _setup_menu(self):
         menu = tk.Menu(self)
