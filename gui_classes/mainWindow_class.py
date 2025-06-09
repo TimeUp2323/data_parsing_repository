@@ -43,7 +43,7 @@ class MainWindow(tk.Tk):
 
     def _setup_menu(self):
         menu = tk.Menu(self)
-        menu.add_command(label="Справка", command=self.show_help)
+        menu.add_command(label="Подробнее", command=self.show_help)
         menu.add_command(label="О программе", command=self.show_about)
         self.config(menu=menu)
 
@@ -60,7 +60,7 @@ class MainWindow(tk.Tk):
 
     def show_help(self):
         text = "Введите путь к директории и нажмите 'Старт'"
-        messagebox.showinfo("Справка", text)
+        messagebox.showinfo("Подробнее", text)
 
     def show_about(self):
         feedback = "Парсер файлов версия 1.0 \n Для обратной связи: timeupwork6432@gmail.com"
