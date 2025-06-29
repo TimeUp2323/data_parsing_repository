@@ -8,7 +8,12 @@ class ResultWindow(tk.Toplevel):
         self.title("Результаты")
         self.geometry("860x600")
 
-        text_frame = ttk.Frame(self)
+        # Основной фрейм для содержимого
+        main_frame = ttk.Frame(self)
+        main_frame.pack(fill="both", expand=True, padx=5, pady=5)
+
+        # Фрейм для текста с прокруткой
+        text_frame = ttk.Frame(main_frame)
         text_frame.pack(fill="both", expand=True)
 
         self.text = tk.Text(text_frame, wrap='word')
@@ -18,6 +23,18 @@ class ResultWindow(tk.Toplevel):
 
         scroll.pack(side='right', fill='y')
         self.text.pack(side='left', fill='both', expand=True)
+
+        # Фрейм для кнопки (внизу окна)
+        button_frame = ttk.Frame(main_frame)
+        button_frame.pack(fill='x', pady=(5, 0))
+
+        # Кнопка закрытия
+        close_button = ttk.Button(
+            button_frame,
+            text="Начать новый анализ",
+            command=self.destroy  # метод destroy закрывает окно
+        )
+        close_button.pack(pady=5)
 
         self._show_results(handler)
 
