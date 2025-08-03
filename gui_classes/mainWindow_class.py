@@ -9,11 +9,10 @@ import webbrowser
 def show_details():
     help_window = Toplevel()
     help_window.title("Подробнее")
-    help_window.geometry("500x400")  # Установим размер окна
+    help_window.geometry("500x400")
 
     text_widget = Text(help_window, wrap="word", padx=20, pady=20)
 
-    # Добавляем контент с форматированием
     text_widget.tag_configure("title", font=("Arial", 14, "bold"), justify='center')
     text_widget.tag_configure("normal", font=("Arial", 11), justify='center')
     text_widget.tag_configure("bold", font=("Arial", 11, "bold"))
@@ -31,14 +30,12 @@ def show_details():
     text_widget.insert(END, "Использованные материалы\n\n",("https://metanit.com", "normal", "link"))
 
 
-    # Делаем ссылки кликабельными (дополнительная функциональность)
     def make_link_clickable(url):
         def callback(event):
             webbrowser.open_new(url)
 
         return callback
 
-    # Привязываем обработчики кликов для ссылок
     for url in ["https://github.com/TimeUp2323/data_parsing_repository",
                 "https://dev.to/username",
                 "https://metanit.com",
@@ -46,7 +43,7 @@ def show_details():
                 "https://t.me/timeup6432"]:
         text_widget.tag_bind(url, "<Button-1>", make_link_clickable(url))
 
-    text_widget.config(state="disabled")  # Запрет редактирования
+    text_widget.config(state="disabled")
     text_widget.pack(fill="both", expand=True)
 
 class MainWindow(tk.Tk):
@@ -56,13 +53,15 @@ class MainWindow(tk.Tk):
         self.geometry("560x480")
         self.file_handler = FileHandler()
 
+        self.dark_mode = False
+
         self._create_widgets()
         self._setup_menu()
+        self._set_theme()
 
     def _create_widgets(self):
         self.entry = ttk.Entry(self, width=50)
         self.entry.pack(pady=140, padx=50)
-
         self.entry.insert(0, "Введите абсолютный путь к директории ...")
         self.entry.config(foreground="grey")
 
@@ -75,6 +74,52 @@ class MainWindow(tk.Tk):
             command=self.run_processing
         )
         self.run_btn.pack()
+
+        self.theme_btn = ttk.Button(
+            self,
+            text="Тёмная тема",
+            command=self.toggle_theme
+        )
+        self.theme_btn.pack(pady=10)
+
+    def toggle_theme(self):
+        self.dark_mode = not self.dark_mode
+        self._set_theme()
+        self.theme_btn.config(text="Тёмная тема" if not self.dark_mode else "Светлая тема")
+
+    def _set_theme(self):
+        if self.dark_mode:
+            self.configure(bg='#2d2d2d')
+            style = ttk.Style()
+            style.theme_use('clam')
+
+            style.configure('.', background='#2d2d2d', foreground='white')
+            style.configure('TEntry', fieldbackground='#3d3d3d', foreground='white')
+            style.configure('TButton', background='#3d3d3d', foreground='white')
+            style.configure('TLabel', background='#2d2d2d', foreground='white')
+            style.configure('TText', background='#3d3d3d', foreground='white')
+
+            self.result_window_bg = '#3d3d3d'
+            self.result_window_fg = 'white'
+
+        else:
+            self.configure(bg='SystemButtonFace')
+            style = ttk.Style()
+            style.theme_use('clam')
+
+            style.configure('.', background='SystemButtonFace', foreground='black')
+            style.configure('TEntry', fieldbackground='white', foreground='black')
+            style.configure('TButton', background='SystemButtonFace', foreground='black')
+            style.configure('TLabel', background='SystemButtonFace', foreground='black')
+            style.configure('TText', background='white', foreground='black')
+
+            # Для ResultWindow
+            self.result_window_bg = 'white'
+            self.result_window_fg = 'black'
+
+        for window in self.winfo_children():
+            if isinstance(window, ResultWindow):
+                window.update_theme_result_window()
 
     def _clear_placeholder(self, event):
         if self.entry.get() == "Введите абсолютный путь к директории ...":
