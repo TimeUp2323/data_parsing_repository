@@ -47,7 +47,9 @@ class ResultWindow(tk.Toplevel):
         self.text.insert('end', "Статистика обработки:\n")
         self.text.insert('end', f"Найдено всего файлов: {handler.get_count_files()}\n")
         self.text.insert('end', f"Найдено всего разрешений:\n")
-        for i, ext in enumerate(handler.get_extensions()):
+        extention = handler.get_extensions().items()
+        sorted_items = dict(sorted(extention, key=lambda item: item[1], reverse=True))
+        for i, ext in enumerate(sorted_items):
             self.text.insert('end', f"{i +1} {ext}: {handler.get_extensions()[ext]}\n")
 
     def update_theme_result_window(self):
